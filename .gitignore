@@ -1,0 +1,15 @@
+# Ignore Visual Studio build outputs
+**/bin/
+**/obj/
+
+# Ignore publish folders
+**/bin/Release/
+**/bin/Debug/
+
+# Ignore generated files
+*.exe
+*.zip
+*.user
+*.suo
+*.vs
+*.log

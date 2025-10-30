@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="WordPlayGameClient.View.NoInternetView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WordPlayGameClient.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="{Binding BackgroundColour}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"  VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="Unable to connect to server, check your internet connection. Server could be inactive." Foreground="{Binding FontColour}" FontSize="32" TextWrapping="Wrap" TextAlignment="Center" Margin="10"/>
+        <Button Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Content=" Retry " FontSize="32" FontWeight="Light" Foreground="{Binding FontColour}" Command="{Binding RetryConnection}" Margin="10"/>
+    </Grid>
+</UserControl>

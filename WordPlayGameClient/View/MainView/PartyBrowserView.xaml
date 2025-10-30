@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="WordPlayGameClient.View.MainView.PartyBrowserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WordPlayGameClient.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600">
+    <Grid Background="{Binding BackgroundColour}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="180"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" Margin="5,2,0,2" Background="Transparent" FontSize="18" Text="{Binding NameSearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Column="0" Margin="5,2,0,2" Background="White" FontSize="18" Text="{Binding NameDisplayText}" Panel.ZIndex="-1" FontWeight="Light"/>
+                <TextBox Grid.Column="1" Margin="0,2,0,2" Background="Transparent" FontSize="18" Text="{Binding HostNameSearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Column="1" Margin="0,2,0,2" Background="White" FontSize="18" Text="{Binding HostNameDisplayText}" Panel.ZIndex="-1" FontWeight="Light"/>
+                <ComboBox Grid.Column="2" Margin="0,2,5,2" SelectedValue="{Binding EnglishOnlySearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Content" SelectedIndex="0" FontSize="15" FontWeight="Light">
+                    <ComboBoxItem>Show all</ComboBoxItem>
+                    <ComboBoxItem>Show english only</ComboBoxItem>
+                    <ComboBoxItem>Exclude english only</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Grid.Row="1">
+                <ItemsControl ItemsSource="{Binding ShownParties}" Background="{Binding BackgroundColour}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{Binding DataContext.FontColour, RelativeSource={RelativeSource AncestorType=ItemsControl}}" BorderThickness="1">
+                                <Grid Background="{Binding DataContext.BackgroundColour, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="70"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="{Binding Name}" Grid.Column="0" Margin="2,0,0,0" FontSize="30" HorizontalAlignment="Left" Foreground="{Binding DataContext.FontColour, RelativeSource={RelativeSource AncestorType=ItemsControl}}"/>
+                                        <TextBlock Text="{Binding HostName}" Grid.Column="0" Margin="2,0,0,0" FontSize="20" HorizontalAlignment="Left" Foreground="{Binding DataContext.FontColour, RelativeSource={RelativeSource AncestorType=ItemsControl}}"/>
+                                        <TextBlock Text="{Binding Description}" Grid.Column="0" Margin="2,0,0,0" FontSize="16" HorizontalAlignment="Left" Foreground="{Binding DataContext.FontColour, RelativeSource={RelativeSource AncestorType=ItemsControl}}" TextWrapping="Wrap"/>
+                                    </StackPanel>
+
+                                    <Grid Grid.Column="1" Background="Transparent">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="75"/>
+                                        </Grid.RowDefinitions>
+
+                                        <StackPanel Grid.Row="1">
+                                            <TextBlock FontSize="20" HorizontalAlignment="Center" Foreground="{Binding DataContext.FontColour, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Margin="2,0,2,0" TextAlignment="Center">
+                                                <Run Text="{Binding PlayerCount}"/>
+                                                <Run Text="/"/>
+                                                <Run Text="{Binding MaxPlayerCount}"/>
+                                            </TextBlock>
+                                            <Button Background="LightGreen" Content=" Join " FontSize="20" Margin="2,0,2,0" Command="{Binding DataContext.JoinPartyCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding Id}"/>
+                                            <TextBlock Text="{Binding EnglishOnlyString}" FontSize="12" Foreground="{Binding DataContext.FontColour, RelativeSource={RelativeSource AncestorType=ItemsControl}}" HorizontalAlignment="Center" TextAlignment="Center" Margin="2,0,2,0"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+
+        <StackPanel Background="{Binding PanelBackgroundColour}" Grid.Column="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Foreground="{Binding FontColour}">
+                    <Run Text="Players: "/>
+                    <Run Text="{Binding TotalPlayerCount}"/>
+                </TextBlock>
+                <TextBlock Grid.Column="1" Foreground="{Binding FontColour}">
+                    <Run Text="Players: "/>
+                    <Run Text="{Binding WaitingPlayerCount}"/>
+                </TextBlock>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Foreground="{Binding FontColour}">
+                    <Run Text="Parties: "/>
+                    <Run Text="{Binding TotalPartyCount}"/>
+                </TextBlock>
+                <TextBlock Grid.Column="1" Foreground="{Binding FontColour}">
+                    <Run Text="Parties: "/>
+                    <Run Text="{Binding WaitingPartyCount}"/>                    
+                </TextBlock>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Total" Grid.Column="0" Foreground="{Binding FontColour}" HorizontalAlignment="Center"/>
+                <TextBlock Text="Waiting" Grid.Column="1" Foreground="{Binding FontColour}" HorizontalAlignment="Center"/>
+            </Grid>
+            <TextBlock Text="Party Creator" FontSize="24" Foreground="{Binding FontColour}" TextAlignment="Center"/>
+            <TextBox FontSize="24" Margin="2,2,2,0" MaxLength="50" Text="{Binding PartyCreatorName}"/>
+            <TextBlock Text="Party name" FontSize="12" FontWeight="UltraLight" VerticalAlignment="Top" Foreground="{Binding FontColour}" Margin="2,0,2,5"/>
+            <Grid Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Content="English only" FontSize="12" Foreground="{Binding FontColour}" Grid.Column="0" IsChecked="{Binding PartyCreatorEnglishOnly}"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <TextBlock Text="Max players: " Foreground="{Binding FontColour}" FontSize="12" Margin="0,0,0,3"/>
+                    <TextBox FontSize="12" Margin="0,0,0,3" MaxLength="2" Text="{Binding PartyCreatorMaxPlayerCount}"/>
+                 </StackPanel>
+            </Grid>
+            <TextBox FontSize="16" TextWrapping="Wrap" Margin="2,2,2,0" MaxLines="7" MaxLength="255" Text="{Binding PartyCreatorDescription}"/>
+            <TextBlock Text="Description" FontSize="12" FontWeight="UltraLight" VerticalAlignment="Top" Foreground="{Binding FontColour}" Margin="2,0,2,5"/>
+            <Button Background="LightGreen" Content="Create Party" FontSize="24" FontWeight="Light" Margin="2,2,2,5" Command="{Binding CreatePartyCommand}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
