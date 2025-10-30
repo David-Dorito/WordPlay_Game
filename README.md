@@ -7,7 +7,7 @@ I developed this project to learn how to synchronize data between clients, handl
 - Backend: C#, SignalR library
 - IDE: Visual Studio 2022, NeoVim
 
-### Features:
+### Features
 - Realtime communication between server and clients using the SignalR library
 - Lobby creation for hosting or joining game sessions
 - Temporary player handling without accounts or profiles
